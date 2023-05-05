@@ -85,6 +85,23 @@ exports.addActualite = (req, res, next) => {
     .catch((error) => res.status(400).json(error));
 };
 
+// --- Modifier une actualité pour un enfant ---
+exports.putActualite = (req, res, next) => {
+  Enfant.findOneAndUpdate(
+    { _id: req.params.idEnfant, 'actualites._id': req.params.idActualite },
+    {
+      $set: {
+        'actualites.$.titre': req.body.titre,
+        'actualites.$.images': req.body.images,
+        'actualites.$.description': req.body.description,
+      },
+    },
+    { new: true }
+  )
+    .then(() => res.status(200).json({ message: 'Actualité modifié !' }))
+    .catch((error) => res.status(400).json(error));
+};
+
 // --- Supprimer une actualité pour un enfant ---
 exports.deleteActualite = (req, res, next) => {
   Enfant.findOneAndUpdate(

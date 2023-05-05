@@ -17,6 +17,9 @@ router.delete('/:idEnfant', enfantsCtrl.deleteEnfant);
 // --- Ajouter une actualité pour un enfant ---
 router.post('/:idEnfant', enfantsCtrl.addActualite);
 
+// --- Modifier une actualité pour un enfant ---
+router.put('/:idEnfant/:idActualite', enfantsCtrl.putActualite);
+
 // --- Supprimer une actualité pour un enfant ---
 router.delete('/:idEnfant/:idActualite', enfantsCtrl.deleteActualite);
 
