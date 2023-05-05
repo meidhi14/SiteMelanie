@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const nourriceRoutes = require('./routes/Nourrice');
+const enfantsRoutes = require('./routes/enfants');
 const path = require('path');
 
 const app = express();
@@ -34,7 +35,8 @@ app.use(express.json());
 // --- Utilisation du router nourriceRoutes ---
 app.use('/nourrice', nourriceRoutes);
 
-// --- Utilisation du router enfantsRoutes ---
+// --- Utilisation du router enfantRoutes ---
+app.use('/enfants', enfantsRoutes);
 
 // --- Utilisation du router livreDorRoutes ---
 
