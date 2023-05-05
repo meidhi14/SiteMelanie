@@ -8,7 +8,6 @@ const enfantSchema = mongoose.Schema({
   image: { type: String, require: true },
   actualites: [
     {
-      actualiteId: { type: String, unique: true },
       titre: { type: String },
       images: [
         {
