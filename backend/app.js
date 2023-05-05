@@ -30,4 +30,13 @@ app.use((req, res, next) => {
 // --- Utiliser les requêtes json ---
 app.use(express.json());
 
+// --- Utilisation du router nourriceRoutes ---
+app.get('/', (req, res, next) => {
+  res.status(200).json({ message: 'Test réussi' });
+});
+
+// --- Utilisation du router enfantsRoutes ---
+
+// --- Utilisation du router livreDorRoutes ---
+
 module.exports = app;
