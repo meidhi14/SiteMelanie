@@ -8,4 +8,8 @@ router.get('/', commentaireCtrl.getAllCommentaires);
 // --- Ajouter un commentaire dans le livre d'or ---
 router.post('/', commentaireCtrl.createCommentaire);
 
+// --- Supprimer un commentaire dans le livre d'or avec son id ---
+
+router.delete('/:idCommentaire', commentaireCtrl.deleteCommentaire);
+
 module.exports = router;
