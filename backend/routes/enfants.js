@@ -9,14 +9,15 @@ router.get('/', enfantsCtrl.getEnfants);
 router.post('/', enfantsCtrl.createEnfant);
 
 // --- Afficher la page de l'enfant ---
-router.get('/:id', enfantsCtrl.getOneEnfant);
+router.get('/:idEnfant', enfantsCtrl.getOneEnfant);
 
 // --- Supprimer un enfant avec son id ---
-router.delete('/:id', enfantsCtrl.deleteEnfant);
+router.delete('/:idEnfant', enfantsCtrl.deleteEnfant);
 
 // --- Ajouter une actualité pour un enfant ---
-router.post('/:id', enfantsCtrl.addActualite);
+router.post('/:idEnfant', enfantsCtrl.addActualite);
 
 // --- Supprimer une actualité pour un enfant ---
+router.delete('/:idEnfant/:idActualite', enfantsCtrl.deleteActualite);
 
 module.exports = router;

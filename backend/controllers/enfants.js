@@ -52,14 +52,14 @@ exports.createEnfant = (req, res, next) => {
 
 // --- Afficher les actualités de l'enfant avec son id ---
 exports.getOneEnfant = (req, res, next) => {
-  Enfant.findOne({ _id: req.params.id })
+  Enfant.findOne({ _id: req.params.idEnfant })
     .then((enfant) => res.status(200).json(enfant))
     .catch((error) => res.status(400).json(error));
 };
 
 // --- Supprimer un enfant avec son id---
 exports.deleteEnfant = (req, res, next) => {
-  Enfant.deleteOne({ _id: req.params.id })
+  Enfant.deleteOne({ _id: req.params.idEnfant })
     .then(() => res.status(200).json({ message: 'Enfant Supprimé !' }))
     .catch((error) => res.status(400).json(error));
 };
@@ -69,7 +69,7 @@ exports.addActualite = (req, res, next) => {
   const { titre, images, description } = req.body;
 
   Enfant.findOneAndUpdate(
-    { _id: req.params.id },
+    { _id: req.params.idEnfant },
     {
       $push: {
         actualites: {
@@ -82,5 +82,16 @@ exports.addActualite = (req, res, next) => {
     { new: true }
   )
     .then((enfant) => res.status(201).json(enfant))
+    .catch((error) => res.status(400).json(error));
+};
+
+// --- Supprimer une actualité pour un enfant ---
+exports.deleteActualite = (req, res, next) => {
+  Enfant.findOneAndUpdate(
+    { _id: req.params.idEnfant },
+    { $pull: { actualites: { _id: req.params.idActualite } } },
+    { new: true }
+  )
+    .then(() => res.status(200).json({ message: 'Actualité Supprimé' }))
     .catch((error) => res.status(400).json(error));
 };
