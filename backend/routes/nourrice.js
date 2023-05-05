@@ -4,3 +4,5 @@ const nourriceCtrl = require('../controllers/nourrice');
 
 // --- Récuperer les information de la nourrice ---
 router.get('/', nourriceCtrl.getNourrice);
+
+module.exports = router;
