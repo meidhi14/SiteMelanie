@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const nourriceRoutes = require('./routes/Nourrice');
 const enfantsRoutes = require('./routes/enfants');
+const commentaireRoutes = require('./routes/commentaire');
 const path = require('path');
 
 const app = express();
@@ -38,6 +39,7 @@ app.use('/nourrice', nourriceRoutes);
 // --- Utilisation du router enfantRoutes ---
 app.use('/enfants', enfantsRoutes);
 
-// --- Utilisation du router livreDorRoutes ---
+// --- Utilisation du router commentaireRoutes ---
+app.use('/livre-dor', commentaireRoutes);
 
 module.exports = app;
