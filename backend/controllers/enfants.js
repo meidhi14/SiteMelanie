@@ -63,3 +63,24 @@ exports.deleteEnfant = (req, res, next) => {
     .then(() => res.status(200).json({ message: 'Enfant Supprimé !' }))
     .catch((error) => res.status(400).json(error));
 };
+
+// --- Ajouter une actualité pour un enfant ---
+exports.addActualite = (req, res, next) => {
+  const { titre, images, description } = req.body;
+
+  Enfant.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $push: {
+        actualites: {
+          titre,
+          images,
+          description,
+        },
+      },
+    },
+    { new: true }
+  )
+    .then((enfant) => res.status(201).json(enfant))
+    .catch((error) => res.status(400).json(error));
+};

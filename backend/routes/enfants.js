@@ -14,4 +14,9 @@ router.get('/:id', enfantsCtrl.getOneEnfant);
 // --- Supprimer un enfant avec son id ---
 router.delete('/:id', enfantsCtrl.deleteEnfant);
 
+// --- Ajouter une actualité pour un enfant ---
+router.post('/:id', enfantsCtrl.addActualite);
+
+// --- Supprimer une actualité pour un enfant ---
+
 module.exports = router;
