@@ -1,5 +1,5 @@
 const Enfant = require('../models/Enfant');
-const bcrypte = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 // --- Afficher la liste des enfants en garde
 exports.getAllEnfants = (req, res, next) => {
@@ -10,7 +10,7 @@ exports.getAllEnfants = (req, res, next) => {
 
 // --- Ajouter un enfant dans la BD ---
 exports.createEnfant = (req, res, next) => {
-  bcrypte.hash(req.body.password, 10).then((hash) => {
+  bcrypt.hash(req.body.password, 10).then((hash) => {
     const enfant = new Enfant({
       identifiant: req.body.identifiant,
       password: hash,
