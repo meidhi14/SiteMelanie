@@ -1,4 +1,5 @@
 const Enfant = require('../models/Enfant');
+const bcrypte = require('bcrypt');
 
 // --- Afficher la liste des enfants en garde
 exports.getAllEnfants = (req, res, next) => {
@@ -9,45 +10,47 @@ exports.getAllEnfants = (req, res, next) => {
 
 // --- Ajouter un enfant dans la BD ---
 exports.createEnfant = (req, res, next) => {
-  const enfant = new Enfant({
-    identifiant: req.body.identifiant,
-    password: req.body.password,
-    prenom: req.body.prenom,
-    image: req.body.image,
-    actualites: req.body.actualites || [],
-  });
-
-  // Vérifier si l'identifiant existe déjà
-  Enfant.findOne({ identifiant: enfant.identifiant })
-    .then((existingEnfant) => {
-      if (existingEnfant) {
-        return res.status(409).json({
-          message: 'Un enfant avec cet identifiant existe déjà.',
-        });
-      }
-
-      // Ajouter l'enfant à la base de données
-      enfant
-        .save()
-        .then((createdEnfant) => {
-          res.status(201).json({
-            message: 'Enfant ajouté avec succès.',
-            enfant: createdEnfant,
-          });
-        })
-        .catch((error) => {
-          res.status(400).json({
-            message: "Impossible de créer l'enfant.",
-            error,
-          });
-        });
-    })
-    .catch((error) => {
-      res.status(400).json({
-        message: 'Une erreur est survenue.',
-        error,
-      });
+  bcrypte.hash(req.body.password, 10).then((hash) => {
+    const enfant = new Enfant({
+      identifiant: req.body.identifiant,
+      password: hash,
+      prenom: req.body.prenom,
+      image: req.body.image,
+      actualites: req.body.actualites || [],
     });
+
+    // Vérifier si l'identifiant existe déjà
+    Enfant.findOne({ identifiant: enfant.identifiant })
+      .then((existingEnfant) => {
+        if (existingEnfant) {
+          return res.status(409).json({
+            message: 'Un enfant avec cet identifiant existe déjà.',
+          });
+        }
+
+        // Ajouter l'enfant à la base de données
+        enfant
+          .save()
+          .then((createdEnfant) => {
+            res.status(201).json({
+              message: 'Enfant ajouté avec succès.',
+              enfant: createdEnfant,
+            });
+          })
+          .catch((error) => {
+            res.status(400).json({
+              message: "Impossible de créer l'enfant.",
+              error,
+            });
+          });
+      })
+      .catch((error) => {
+        res.status(400).json({
+          message: 'Une erreur est survenue.',
+          error,
+        });
+      });
+  });
 };
 
 // --- Afficher la page de l'enfant ---
