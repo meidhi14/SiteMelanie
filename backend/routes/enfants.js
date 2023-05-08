@@ -3,7 +3,7 @@ const router = express.Router();
 const enfantsCtrl = require('../controllers/enfants');
 
 // --- Afficher la liste des enfants en garde
-router.get('/', enfantsCtrl.getEnfants);
+router.get('/', enfantsCtrl.getAllEnfants);
 
 // --- Ajouter un enfant ---
 router.post('/', enfantsCtrl.createEnfant);

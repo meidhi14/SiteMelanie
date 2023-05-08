@@ -12,7 +12,7 @@ exports.login = (req, res, next) => {
         // Compte nourrice trouvé
         res.status(200).json({
           message: 'Connexion réussie en tant que nourrice',
-          estNourrice: true,
+          compteNourrice: true,
         });
       } else {
         // Vérifier si les identifiants correspondent à un compte enfant
@@ -25,7 +25,7 @@ exports.login = (req, res, next) => {
               // Compte enfant trouvé
               res.status(200).json({
                 message: "Connexion réussie en tant qu'enfant",
-                estNourrice: false,
+                compteNourrice: false,
               });
             } else {
               // Identifiants invalides

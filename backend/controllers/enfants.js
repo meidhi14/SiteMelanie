@@ -1,7 +1,7 @@
 const Enfant = require('../models/Enfant');
 
 // --- Afficher la liste des enfants en garde
-exports.getEnfants = (req, res, next) => {
+exports.getAllEnfants = (req, res, next) => {
   Enfant.find()
     .then((enfants) => res.status(200).json(enfants))
     .catch((error) => res.status(400).json({ error }));
@@ -17,7 +17,7 @@ exports.createEnfant = (req, res, next) => {
     actualites: req.body.actualites || [],
   });
 
-  // Vérifie si l'identifiant existe déjà
+  // Vérifier si l'identifiant existe déjà
   Enfant.findOne({ identifiant: enfant.identifiant })
     .then((existingEnfant) => {
       if (existingEnfant) {
@@ -26,7 +26,7 @@ exports.createEnfant = (req, res, next) => {
         });
       }
 
-      // Ajoute l'enfant à la base de données s'il n'existe pas déjà
+      // Ajouter l'enfant à la base de données
       enfant
         .save()
         .then((createdEnfant) => {
@@ -38,22 +38,24 @@ exports.createEnfant = (req, res, next) => {
         .catch((error) => {
           res.status(400).json({
             message: "Impossible de créer l'enfant.",
-            error: error,
+            error,
           });
         });
     })
     .catch((error) => {
       res.status(400).json({
         message: 'Une erreur est survenue.',
-        error: error,
+        error,
       });
     });
 };
 
-// --- Afficher les actualités de l'enfant avec son id ---
+// --- Afficher la page de l'enfant ---
 exports.getOneEnfant = (req, res, next) => {
   Enfant.findOne({ _id: req.params.idEnfant })
-    .then((enfant) => res.status(200).json(enfant))
+    .then((enfant) =>
+      res.status(200).json({ message: 'Enfant trouvé !', enfant })
+    )
     .catch((error) => res.status(400).json(error));
 };
 
@@ -66,22 +68,20 @@ exports.deleteEnfant = (req, res, next) => {
 
 // --- Ajouter une actualité pour un enfant ---
 exports.addActualite = (req, res, next) => {
-  const { titre, images, description } = req.body;
-
   Enfant.findOneAndUpdate(
     { _id: req.params.idEnfant },
     {
       $push: {
         actualites: {
-          titre,
-          images,
-          description,
+          titre: req.body.titre,
+          images: req.body.images,
+          description: req.body.description,
         },
       },
     },
     { new: true }
   )
-    .then((enfant) => res.status(201).json(enfant))
+    .then(() => res.status(201).json({ message: 'Actualité ajouté !' }))
     .catch((error) => res.status(400).json(error));
 };
 
