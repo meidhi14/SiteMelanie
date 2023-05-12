@@ -1,21 +1,27 @@
+// --- Express ---
 const express = require('express');
-const mongoose = require('mongoose');
-const nourriceRoutes = require('./routes/Nourrice');
-const enfantsRoutes = require('./routes/enfants');
-const commentaireRoutes = require('./routes/commentaire');
-const loginRoutes = require('./routes/login');
-const path = require('path');
-
 const app = express();
 
-// --- Connection à la base de donnée ---
-mongoose
-  .connect(
-    'mongodb+srv://meidhi:WprEmjmxNqByrJwG@sitemelanie.rmks2ly.mongodb.net/?retryWrites=true&w=majority',
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
+// --- SQlite ---
+const sqlite3 = require('sqlite3');
+const dbname = 'database.sqlite';
+// --- Ouverture de la BDD SQlite ---
+let db = new sqlite3.Database(dbname, (err) => {
+  if (err) {
+    throw err;
+  } else {
+    console.log('Database started on ' + dbname + ' !');
+  }
+});
+
+/* --- Fermeture de la BDD SQlite ---
+db.close((err) => {
+  if (err) {
+    throw err;
+  } else {
+    console.log('Database closed !');
+  }
+});*/
 
 // --- les CORS ---
 app.use((req, res, next) => {
@@ -33,17 +39,5 @@ app.use((req, res, next) => {
 
 // --- Utiliser les requêtes json ---
 app.use(express.json());
-
-// --- Utilisation du router nourriceRoutes ---
-app.use('/nourrice', nourriceRoutes);
-
-// --- Utilisation du router enfantRoutes ---
-app.use('/enfants', enfantsRoutes);
-
-// --- Utilisation du router commentaireRoutes ---
-app.use('/livre-dor', commentaireRoutes);
-
-// --- Utilisation du router loginRoutes ---
-app.use('/login', loginRoutes);
 
 module.exports = app;
