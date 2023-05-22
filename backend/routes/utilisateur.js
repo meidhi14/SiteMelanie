@@ -6,14 +6,12 @@ const utilisateurCtrl = require('../controllers/utilisateur');
 router.post('/', utilisateurCtrl.createUtilisateur);
 
 // --- Modifier un compte utilisateur avec son id ---
-router.put('/:id', utilisateurCtrl.modifyOneUtilisateur);
+router.put('/:idUtilisateur', utilisateurCtrl.modifyOneUtilisateur);
 
 // --- Supprimer un compte utilisateur avec son id ---
-router.delete('/:id', utilisateurCtrl.deleteOneUtilisateur);
+router.delete('/:idUtilisateur', utilisateurCtrl.deleteOneUtilisateur);
 
-// --- Récupérer les information de l'assistante maternelle ---
-router.get('/', utilisateurCtrl.getOneAssistanteMat);
-
-// --- Modifier les information de l'assistante maternelle ---
+// --- Récupérer les information d'un utilisateur avec son id ---
+router.get('/:idUtilisateur', utilisateurCtrl.getOneUtilisateur);
 
 module.exports = router;

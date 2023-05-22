@@ -6,7 +6,7 @@ const commentaireCtrl = require('../controllers/commentaire');
 router.get('/', commentaireCtrl.getAllCommentaire);
 
 // --- Supprimer un commentaire avec son id ---
-router.delete('/:id', commentaireCtrl.deleteOneCommentaire);
+router.delete('/:idCommentaire', commentaireCtrl.deleteOneCommentaire);
 
 // --- Ajouter un commentaire ---
 router.post('/', commentaireCtrl.insertCommentaire);
