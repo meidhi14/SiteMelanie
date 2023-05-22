@@ -2,26 +2,11 @@
 const express = require('express');
 const app = express();
 
-// --- SQlite ---
-const sqlite3 = require('sqlite3');
-const dbname = 'database.sqlite';
-// --- Ouverture de la BDD SQlite ---
-let db = new sqlite3.Database(dbname, (err) => {
-  if (err) {
-    throw err;
-  } else {
-    console.log('Database started on ' + dbname + ' !');
-  }
-});
-
-/* --- Fermeture de la BDD SQlite ---
-db.close((err) => {
-  if (err) {
-    throw err;
-  } else {
-    console.log('Database closed !');
-  }
-});*/
+// --- Utilisation des Routes
+const utilisateurRoutes = require('./routes/utilisateur');
+const commentaireRoutes = require('./routes/commentaire');
+const actualiteRoutes = require('./routes/actualite');
+const imageRoutes = require('./routes/image');
 
 // --- les CORS ---
 app.use((req, res, next) => {
@@ -39,5 +24,17 @@ app.use((req, res, next) => {
 
 // --- Utiliser les requêtes json ---
 app.use(express.json());
+
+// --- Utiliser la route Utilisateur ---
+app.use('/utilisateur', utilisateurRoutes);
+
+// --- Utiliser la route Actualité ---
+app.use('/actualite', actualiteRoutes);
+
+// --- Utiliser la route Image ---
+app.use('/actualite', imageRoutes);
+
+// --- Utiliser la route Commentaire ---
+app.use('/livre-dor', commentaireRoutes);
 
 module.exports = app;
