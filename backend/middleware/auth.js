@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
 
+// --- Utilisation des variables d'environnement ---
+require('dotenv').config();
+
 // Middleware d'authentification
 const auth = (req, res, next) => {
   // Récupérer le token d'authentification depuis les en-têtes de la requête
@@ -14,10 +17,10 @@ const auth = (req, res, next) => {
 
   try {
     // Vérifier et décoder le token
-    const decodedToken = jwt.verify(token, 'your-secret-key');
+    const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
 
     // Ajouter les informations du token décrypté à l'objet de requête (req)
-    req.userData = { userId: decodedToken.userId };
+    req.userData = { utilisateur_id: decodedToken.utilisateur_id };
 
     // Passer au prochain middleware
     next();

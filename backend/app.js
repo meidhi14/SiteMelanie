@@ -6,7 +6,6 @@ const app = express();
 const utilisateurRoutes = require('./routes/utilisateur');
 const commentaireRoutes = require('./routes/commentaire');
 const actualiteRoutes = require('./routes/actualite');
-const loginRoutes = require('./routes/login');
 
 // --- les CORS ---
 app.use((req, res, next) => {
@@ -33,8 +32,5 @@ app.use('/actualite', actualiteRoutes);
 
 // --- Utiliser la route Commentaire ---
 app.use('/livre-dor', commentaireRoutes);
-
-// --- Utiliser la route Login ---
-app.use('/login', loginRoutes);
 
 module.exports = app;
