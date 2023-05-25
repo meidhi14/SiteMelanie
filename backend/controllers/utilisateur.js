@@ -1,19 +1,31 @@
 const Utilisateur = require('../models/utilisateur');
+const bcrypt = require('bcrypt');
 
 // --- Ajouter un compte utilisateur ---
 exports.createUtilisateur = (req, res, next) => {
-  Utilisateur.create({
-    nom: req.body.nom,
-    prenom: req.body.prenom,
-    email: req.body.email,
-    password: req.body.password,
-    type_utilisateur_id: req.body.type_utilisateur_id,
-  })
-    .then(() => {
-      res.status(201).json({ message: 'Utilisateur créé !' });
+  const { nom, prenom, email, password, type_utilisateur_id } = req.body;
+
+  bcrypt
+    .hash(password, 10)
+    .then((hashedPassword) => {
+      Utilisateur.create({
+        nom,
+        prenom,
+        email,
+        password: hashedPassword,
+        type_utilisateur_id,
+      })
+        .then(() => {
+          res.status(201).json({ message: 'Utilisateur créé !' });
+        })
+        .catch((error) => {
+          console.log(error); // Ajout de la console.log de l'erreur
+          res.status(400).json({ error });
+        });
     })
     .catch((error) => {
-      res.status(400).json({ error });
+      console.log(error); // Ajout de la console.log de l'erreur
+      res.status(500).json({ error });
     });
 };
 
@@ -67,5 +79,12 @@ exports.getOneUtilisateur = (req, res, next) => {
       }
       res.status(200).json({ utilisateur });
     })
+    .catch((error) => res.status(400).json(error));
+};
+
+// --- Récupérer la liste des Utilisateur ---
+exports.getAllUtilisateur = (req, res, next) => {
+  Utilisateur.findAll()
+    .then((utilisateurs) => res.status(200).json(utilisateurs))
     .catch((error) => res.status(400).json(error));
 };

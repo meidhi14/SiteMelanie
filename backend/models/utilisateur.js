@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../sequelize');
-const TypeUtilisateur = require('./type_utilisateur');
 
 const Utilisateur = sequelize.define(
   'utilisateur',
@@ -24,14 +23,10 @@ const Utilisateur = sequelize.define(
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
   },
   { timestamps: false }
 );
-
-Utilisateur.belongsTo(TypeUtilisateur, {
-  foreignKey: 'type_utilisateur_id',
-});
 
 module.exports = Utilisateur;

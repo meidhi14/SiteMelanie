@@ -1,23 +1,19 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../sequelize');
 
-const Actualite = sequelize.define(
-  'actualite',
+const Image = sequelize.define(
+  'image',
   {
-    titre: {
+    nom: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
+    format: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    date: {
-      type: DataTypes.DATE,
       allowNull: false,
     },
   },
   { timestamps: false }
 );
 
-module.exports = Actualite;
+module.exports = Image;

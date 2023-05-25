@@ -11,4 +11,7 @@ router.post('/:idUtilisateur', actualiteCtrl.createActualite);
 // --- Supprimer une actualite avec son id ---
 router.delete('/:idUtilisateur/:idActualite', actualiteCtrl.deleteOneActualite);
 
+// --- Modifier une actualite avec son id ---
+router.put('/:idUtilisateur/:idActualite', actualiteCtrl.modifyOneActualite);
+
 module.exports = router;

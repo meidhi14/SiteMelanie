@@ -6,7 +6,7 @@ const app = express();
 const utilisateurRoutes = require('./routes/utilisateur');
 const commentaireRoutes = require('./routes/commentaire');
 const actualiteRoutes = require('./routes/actualite');
-const imageRoutes = require('./routes/image');
+const loginRoutes = require('./routes/login');
 
 // --- les CORS ---
 app.use((req, res, next) => {
@@ -31,10 +31,10 @@ app.use('/utilisateur', utilisateurRoutes);
 // --- Utiliser la route Actualité ---
 app.use('/actualite', actualiteRoutes);
 
-// --- Utiliser la route Image ---
-app.use('/actualite', imageRoutes);
-
 // --- Utiliser la route Commentaire ---
 app.use('/livre-dor', commentaireRoutes);
+
+// --- Utiliser la route Login ---
+app.use('/login', loginRoutes);
 
 module.exports = app;

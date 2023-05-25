@@ -14,4 +14,7 @@ router.delete('/:idUtilisateur', utilisateurCtrl.deleteOneUtilisateur);
 // --- Récupérer les information d'un utilisateur avec son id ---
 router.get('/:idUtilisateur', utilisateurCtrl.getOneUtilisateur);
 
+// --- Récupérer la liste des Utilisateur ---
+router.get('/', utilisateurCtrl.getAllUtilisateur);
+
 module.exports = router;
