@@ -22,7 +22,8 @@ exports.sendAllActualite = (req, res, next) => {
         });
     })
     .catch((error) => {
-      res.status(400).json({ error });
+      console.log(error);
+      res.status(400).json(error);
     });
 };
 
@@ -65,18 +66,21 @@ exports.createActualite = (req, res, next) => {
                   .json({ message: 'Actualité et images créées !' });
               })
               .catch((error) => {
-                res.status(400).json({ error });
+                console.log(error);
+                res.status(400).json(error);
               });
           } else {
             res.status(201).json({ message: 'Actualité créée !' });
           }
         })
         .catch((error) => {
-          res.status(400).json({ error });
+          console.log(error);
+          res.status(400).json(error);
         });
     })
     .catch((error) => {
-      res.status(400).json({ error });
+      console.log(error);
+      res.status(400).json(error);
     });
 };
 
@@ -96,11 +100,13 @@ exports.deleteOneActualite = (req, res, next) => {
           res.status(200).json({ message: 'Actualité supprimée !' });
         })
         .catch((error) => {
-          res.status(400).json({ error });
+          console.log(error);
+          res.status(400).json(error);
         });
     })
     .catch((error) => {
-      res.status(400).json({ error });
+      console.log(error);
+      res.status(400).json(error);
     });
 };
 
@@ -127,6 +133,7 @@ exports.modifyOneActualite = (req, res, next) => {
       res.status(200).json({ message: 'Actualité modifiée !' });
     })
     .catch((error) => {
-      res.status(400).json({ error });
+      console.log(error);
+      res.status(400).json(error);
     });
 };

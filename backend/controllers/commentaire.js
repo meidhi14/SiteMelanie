@@ -4,7 +4,10 @@ const Commentaire = require('../models/commentaire');
 exports.getAllCommentaire = (req, res, next) => {
   Commentaire.findAll()
     .then((commentaires) => res.status(200).json({ commentaires }))
-    .catch((error) => res.status(400).json({ error }));
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json(error);
+    });
 };
 
 // --- Supprimer un commentaire avec son id ---
@@ -13,7 +16,10 @@ exports.deleteOneCommentaire = (req, res, next) => {
     where: { id: req.params.idCommentaire },
   })
     .then(() => res.status(200).json({ message: 'Commentaire Supprimé !' }))
-    .catch((error) => res.status(400).json({ error }));
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json(error);
+    });
 };
 
 // --- Ajouter un commentaire ---
@@ -27,6 +33,7 @@ exports.insertCommentaire = (req, res, next) => {
       res.status(201).json({ message: 'Commentaire créé !' });
     })
     .catch((error) => {
-      res.status(400).json({ error });
+      console.log(error);
+      res.status(400).json(error);
     });
 };
