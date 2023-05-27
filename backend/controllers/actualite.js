@@ -1,4 +1,5 @@
 const { Utilisateur, Actualite, Image } = require('../models');
+const { enregistrerImages } = require('../fonctions');
 
 // --- Récupérer toutes les actualite d'un utilisateur avec son id ---
 exports.sendAllActualite = (req, res, next) => {
@@ -31,7 +32,7 @@ exports.sendAllActualite = (req, res, next) => {
 exports.createActualite = (req, res, next) => {
   const idUtilisateur = req.params.idUtilisateur;
   const { titre, description, date } = req.body;
-  const images = req.body.images; // Array d'images associées à l'actualité
+  const images = req.files; // Utilisez req.files pour accéder aux fichiers envoyés
 
   Utilisateur.findByPk(idUtilisateur)
     .then((utilisateur) => {
@@ -49,17 +50,7 @@ exports.createActualite = (req, res, next) => {
           // Vérifier si des images sont fournies
           if (images && images.length > 0) {
             // Créer les images associées à l'actualité
-            const imagePromises = images.map((image) =>
-              Image.create({
-                nom: image.nom,
-                format: image.format,
-                actualite_id: actualite.id, // Associer l'image à l'actualité créée
-                utilisateur_id: idUtilisateur, // Associer l'image à l'utilisateur de l'actualité
-              })
-            );
-
-            // Attendre que toutes les images soient créées
-            Promise.all(imagePromises)
+            enregistrerImages(idUtilisateur, images)
               .then(() => {
                 res
                   .status(201)

@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 // --- Utilisation des fonctions pour les images ---
-const { enregistrerImage, supprimerImage } = require('../fonctions');
+const { enregistrerImages, supprimerImage } = require('../fonctions');
 
 // --- Utilisation des variables d'environnement ---
 require('dotenv').config();
@@ -27,12 +27,12 @@ exports.createUtilisateur = (req, res, next) => {
         type_utilisateur_id,
       })
         .then((utilisateur) => {
-          if (req.file) {
-            // Si une image est téléchargée
-            const image = req.file;
+          if (req.files) {
+            // Si des images sont téléchargées
+            const images = req.files;
 
-            // Enregistrer l'image
-            enregistrerImage(utilisateur.id, image);
+            // Enregistrer les images
+            enregistrerImages(utilisateur.id, images);
           }
 
           res.status(201).json({ message: 'Utilisateur créé !' });
@@ -78,7 +78,7 @@ exports.modifyOneUtilisateur = (req, res, next) => {
 
             // Enregistrer la nouvelle image dans le dossier "images" et dans la base de données
             const nouvelleImage = req.file;
-            enregistrerImage(utilisateur.id, nouvelleImage);
+            enregistrerImages(utilisateur.id, nouvelleImage);
           }
 
           // Mettre à jour l'utilisateur dans la base de données
