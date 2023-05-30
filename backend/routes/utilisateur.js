@@ -8,7 +8,12 @@ const multer = require('../middleware/multer-config');
 router.post('/', auth, multer, utilisateurCtrl.createUtilisateur);
 
 // --- Modifier un compte utilisateur avec son id ---
-router.put('/:idUtilisateur', auth, utilisateurCtrl.modifyOneUtilisateur);
+router.put(
+  '/:idUtilisateur',
+  auth,
+  multer,
+  utilisateurCtrl.modifyOneUtilisateur
+);
 
 // --- Supprimer un compte utilisateur avec son id ---
 router.delete('/:idUtilisateur', auth, utilisateurCtrl.deleteOneUtilisateur);

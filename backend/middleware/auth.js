@@ -4,10 +4,9 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 // Middleware d'authentification
-const auth = (req, res, next) => {
+module.exports = (req, res, next) => {
   // Récupérer le token d'authentification depuis les en-têtes de la requête
-  const token = req.headers.authorization.split(' ')[1];
-
+  let token = req.headers.authorization;
   // Vérifier si le token existe
   if (!token) {
     return res
@@ -17,12 +16,11 @@ const auth = (req, res, next) => {
 
   try {
     // Vérifier et décoder le token
-    console.log(process.env.RANDOM_TOKEN_SECRET);
-    console.log(token);
+    let token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
 
     // Ajouter les informations du token décrypté à l'objet de requête (req)
-    req.userData = { utilisateur_id: decodedToken.utilisateur_id };
+    req.auth = { utilisateur_id: decodedToken.utilisateur_id };
 
     // Passer au prochain middleware
     next();
@@ -32,5 +30,3 @@ const auth = (req, res, next) => {
       .json({ message: "Token d'authentification invalide." });
   }
 };
-
-module.exports = auth;

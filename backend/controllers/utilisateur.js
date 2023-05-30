@@ -74,13 +74,13 @@ exports.modifyOneUtilisateur = (req, res, next) => {
           utilisateur.type_utilisateur_id = type_utilisateur_id;
 
           // Vérifier si une nouvelle image est présente
-          if (req.file) {
+          if (req.files) {
             // Supprimer l'ancienne image du dossier "images" et de la base de données
             const ancienneImage = utilisateur.image;
             supprimerImage(ancienneImage);
 
             // Enregistrer la nouvelle image dans le dossier "images" et dans la base de données
-            const nouvelleImage = req.file;
+            const nouvelleImage = req.files;
             enregistrerImagesUtilisateur(utilisateur.id, nouvelleImage);
           }
 
