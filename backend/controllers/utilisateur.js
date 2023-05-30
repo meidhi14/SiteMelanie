@@ -5,7 +5,10 @@ const fs = require('fs');
 const path = require('path');
 
 // --- Utilisation des fonctions pour les images ---
-const { enregistrerImages, supprimerImage } = require('../fonctions');
+const {
+  enregistrerImagesUtilisateur,
+  supprimerImage,
+} = require('../fonctions');
 
 // --- Utilisation des variables d'environnement ---
 require('dotenv').config();
@@ -32,7 +35,7 @@ exports.createUtilisateur = (req, res, next) => {
             const images = req.files;
 
             // Enregistrer les images
-            enregistrerImages(utilisateur.id, images);
+            enregistrerImagesUtilisateur(utilisateur.id, images);
           }
 
           res.status(201).json({ message: 'Utilisateur créé !' });
@@ -78,7 +81,7 @@ exports.modifyOneUtilisateur = (req, res, next) => {
 
             // Enregistrer la nouvelle image dans le dossier "images" et dans la base de données
             const nouvelleImage = req.file;
-            enregistrerImages(utilisateur.id, nouvelleImage);
+            enregistrerImagesUtilisateur(utilisateur.id, nouvelleImage);
           }
 
           // Mettre à jour l'utilisateur dans la base de données
@@ -138,6 +141,7 @@ exports.deleteOneUtilisateur = async (req, res, next) => {
 exports.getOneUtilisateur = (req, res, next) => {
   Utilisateur.findOne({
     where: { id: req.params.idUtilisateur },
+    include: [{ model: Actualite }, { model: Image }],
   })
     .then((utilisateur) => {
       if (!utilisateur) {
@@ -163,7 +167,6 @@ exports.getAllUtilisateur = (req, res, next) => {
 
 // --- se connecter ---
 exports.login = (req, res, next) => {
-  console.log('avant recherche utilisateur');
   Utilisateur.findOne({
     where: { email: req.body.email.trim() },
     include: [{ model: TypeUtilisateur, as: 'type_utilisateur' }],
@@ -177,7 +180,6 @@ exports.login = (req, res, next) => {
       bcrypt
         .compare(req.body.password, utilisateur.password)
         .then((valid) => {
-          console.log(valid);
           if (!valid) {
             return res
               .status(401)

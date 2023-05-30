@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const Image = require('./models/image');
 
-// Fonction pour enregistrer les images
-const enregistrerImages = (id, images) => {
+// Fonction pour enregistrer les images pour un UTILISATEUR !
+const enregistrerImagesUtilisateur = (id, images) => {
   const imagePromises = images.map((image) => {
     return new Promise((resolve, reject) => {
       fs.readFile(image.path, (err, data) => {
@@ -17,6 +17,39 @@ const enregistrerImages = (id, images) => {
           nom: image.filename,
           format: image.mimetype,
           utilisateur_id: id,
+        })
+          .then(() => {
+            console.log('Nouvelle image enregistrée !');
+            resolve();
+          })
+          .catch((error) => {
+            console.log(
+              "Erreur lors de l'enregistrement de la nouvelle image",
+              error
+            );
+            reject(error);
+          });
+      });
+    });
+  });
+
+  return Promise.all(imagePromises);
+};
+// Fonction pour enregistrer les images pour une ACTUALITE !
+const enregistrerImagesActualite = (id, images) => {
+  const imagePromises = images.map((image) => {
+    return new Promise((resolve, reject) => {
+      fs.readFile(image.path, (err, data) => {
+        if (err) {
+          console.error("Erreur lors de la lecture du fichier d'image", err);
+          reject(err);
+          return;
+        }
+
+        Image.create({
+          nom: image.filename,
+          format: image.mimetype,
+          actualite_id: id,
         })
           .then(() => {
             console.log('Nouvelle image enregistrée !');
@@ -51,4 +84,8 @@ const supprimerImage = (id) => {
   }
 };
 
-module.exports = { enregistrerImages, supprimerImage };
+module.exports = {
+  enregistrerImagesUtilisateur,
+  enregistrerImagesActualite,
+  supprimerImage,
+};

@@ -6,7 +6,7 @@ require('dotenv').config();
 // Middleware d'authentification
 const auth = (req, res, next) => {
   // Récupérer le token d'authentification depuis les en-têtes de la requête
-  const token = req.headers.authorization;
+  const token = req.headers.authorization.split(' ')[1];
 
   // Vérifier si le token existe
   if (!token) {
@@ -17,6 +17,8 @@ const auth = (req, res, next) => {
 
   try {
     // Vérifier et décoder le token
+    console.log(process.env.RANDOM_TOKEN_SECRET);
+    console.log(token);
     const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
 
     // Ajouter les informations du token décrypté à l'objet de requête (req)

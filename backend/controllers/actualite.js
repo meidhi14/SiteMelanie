@@ -1,11 +1,13 @@
 const { Utilisateur, Actualite, Image } = require('../models');
-const { enregistrerImages } = require('../fonctions');
+const { enregistrerImagesActualite, supprimerImage } = require('../fonctions');
+const path = require('path');
+const fs = require('fs');
 
 // --- Récupérer toutes les actualite d'un utilisateur avec son id ---
 exports.sendAllActualite = (req, res, next) => {
   const idUtilisateur = req.params.idUtilisateur;
 
-  Utilisateur.findByPk(idUtilisateur)
+  Utilisateur.findByPk(idUtilisateur, { include: { model: Image } })
     .then((utilisateur) => {
       if (!utilisateur) {
         return res.status(404).json({ message: 'Utilisateur non trouvé !' });
@@ -26,6 +28,15 @@ exports.sendAllActualite = (req, res, next) => {
       console.log(error);
       res.status(400).json(error);
     });
+};
+
+// --- Récupérer UNE actualite d'un utilisateur avec son id ---
+exports.getOneActualite = (req, res, next) => {
+  const idActualite = req.params.idActualite;
+
+  Actualite.findByPk(idActualite, { include: { model: Image } })
+    .then((actualite) => res.status(200).json(actualite))
+    .catch((error) => res.status(400).json({ error }));
 };
 
 // --- Ajouter une actualite avec l'id de l'utilisateur ---
@@ -50,7 +61,7 @@ exports.createActualite = (req, res, next) => {
           // Vérifier si des images sont fournies
           if (images && images.length > 0) {
             // Créer les images associées à l'actualité
-            enregistrerImages(idUtilisateur, images)
+            enregistrerImagesActualite(actualite.id, images)
               .then(() => {
                 res
                   .status(201)
@@ -102,29 +113,44 @@ exports.deleteOneActualite = (req, res, next) => {
 };
 
 // --- Modifier une actualite avec son id ---
-exports.modifyOneActualite = (req, res, next) => {
+exports.modifyOneActualite = async (req, res, next) => {
   const idActualite = req.params.idActualite;
   const { titre, description, date } = req.body;
+  const images = req.files;
+  console.log(req.files);
 
-  Actualite.findByPk(idActualite)
-    .then((actualite) => {
-      if (!actualite) {
-        return res.status(404).json({ message: 'Actualité non trouvée.' });
-      }
-
-      // Mettre à jour les propriétés de l'actualité
-      actualite.titre = titre;
-      actualite.description = description;
-      actualite.date = date || new Date();
-
-      // Enregistrer les modifications dans la base de données
-      return actualite.save();
-    })
-    .then(() => {
-      res.status(200).json({ message: 'Actualité modifiée !' });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(400).json(error);
+  try {
+    const actualite = await Actualite.findByPk(idActualite, {
+      include: { model: Image },
     });
+    if (!actualite) {
+      return res.status(404).json({ message: 'Actualité non trouvée.' });
+    }
+
+    if (images) {
+      console.log('Il y a des images');
+
+      // Supprimer les anciennes images de l'actualité
+      for (const image of actualite.images) {
+        const cheminImage = path.join('images', image.nom);
+        fs.unlinkSync(cheminImage);
+        await Image.destroy({ where: { id: image.id } });
+        console.log('Ancienne image supprimée :', image.id);
+      }
+      enregistrerImagesActualite(actualite.id, images);
+    }
+
+    // Mettre à jour les propriétés de l'actualité
+    actualite.titre = titre || actualite.titre;
+    actualite.description = description || actualite.description;
+    actualite.date = date || new Date();
+
+    // Enregistrer les modifications dans la base de données
+    await actualite.save();
+
+    res.status(200).json({ message: 'Actualité mise à jour.' });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
 };
