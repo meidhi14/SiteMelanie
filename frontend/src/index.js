@@ -9,6 +9,7 @@ import FormulaireAjoutEnfant from './pages/FormulaireAjoutEnfant';
 import FormulaireDeConnection from './pages/FormulaireDeConnection';
 import MonEnfant from './pages/MonEnfant';
 import ListeEnfants from './pages/ListeEnfants';
+import Actualite from './pages/Actualite';
 import LivreDor from './pages/LivreDor';
 import Error from './pages/Error';
 import Header from './composants/Header';
@@ -42,7 +43,11 @@ root.render(
           element={<FormulaireDeConnection />}
         />
 
-        <Route path="/mon-enfant/:id" element={<MonEnfant />} />
+        <Route path="/mon-enfant/:idUtilisateur" element={<MonEnfant />} />
+        <Route
+          path="/mon-enfant/:idUtilisateur/:idActualite"
+          element={<Actualite />}
+        />
         <Route path="/liste-enfants" element={<ListeEnfants />} />
         <Route path="/livre-dor" element={<LivreDor />} />
         <Route path="*" element={<Error />} />
