@@ -1,12 +1,12 @@
 import React from 'react';
 import './style.css';
+import FormulaireAjoutActualiteComposant from '../../composants/FormulaireAjoutActualite';
 
-function FormulaireAjoutActualite() {
+export default function FormulaireAjoutActualite() {
   return (
     <React.Fragment>
-      <h1>Formulaire d'ajout d'actualité</h1>
+      <h1>Page Formulaire d'ajout d'actualité</h1>
+      <FormulaireAjoutActualiteComposant />
     </React.Fragment>
   );
 }
-
-export default FormulaireAjoutActualite;

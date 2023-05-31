@@ -1,12 +1,14 @@
 import React from 'react';
 import './style.css';
+import BaniereEnfant from '../../composants/BanniereEnfant';
+import BoutonAjout from '../../composants/BoutonAjout';
 
-function ListeEnfants() {
+export default function ListeEnfants() {
   return (
     <React.Fragment>
-      <h1>Listes des enfants en garde</h1>
+      <h1>Page Listes des enfants en garde</h1>
+      <BaniereEnfant />
+      <BoutonAjout />
     </React.Fragment>
   );
 }
-
-export default ListeEnfants;

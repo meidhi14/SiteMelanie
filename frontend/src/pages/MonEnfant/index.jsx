@@ -1,12 +1,16 @@
 import React from 'react';
 import './style.css';
+import BaniereEnfant from '../../composants/BanniereEnfant';
+import BoutonAjout from '../../composants/BoutonAjout';
+import Actualite from '../../composants/Actualite';
 
-function MonEnfant() {
+export default function MonEnfant() {
   return (
     <React.Fragment>
-      <h1>Mon enfant</h1>
+      <h1>Page Mon enfant</h1>
+      <BaniereEnfant />
+      <BoutonAjout />
+      <Actualite />
     </React.Fragment>
   );
 }
-
-export default MonEnfant;

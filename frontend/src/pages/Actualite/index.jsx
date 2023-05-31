@@ -1,12 +1,12 @@
 import React from 'react';
 import './style.css';
+import ActualiteComposant from '../../composants/Actualite';
 
-function Actualite() {
+export default function Actualite() {
   return (
     <React.Fragment>
-      <h1>Actualité</h1>
+      <h1>Page Actualité</h1>
+      <ActualiteComposant />
     </React.Fragment>
   );
 }
-
-export default Actualite;

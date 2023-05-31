@@ -1,12 +1,14 @@
 import React from 'react';
 import './style.css';
+import CarrouselDePhoto from '../../composants/CarrouselDePhoto';
+import ContenuDescription from '../../composants/ContenuDescription';
 
-function Presentation() {
+export default function Presentation() {
   return (
     <React.Fragment>
-      <h1>Présentation</h1>
+      <h1>Page Présentation</h1>
+      <CarrouselDePhoto />
+      <ContenuDescription />
     </React.Fragment>
   );
 }
-
-export default Presentation;

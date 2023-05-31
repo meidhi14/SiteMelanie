@@ -1,5 +1,5 @@
 import './style.css';
 
 export default function FormulaireAjoutActualite() {
-  return <h1>FormulaireAjoutActualite</h1>;
+  return <h1>Composant FormulaireAjoutActualite</h1>;
 }

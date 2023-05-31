@@ -1,12 +1,10 @@
 import React from 'react';
 import './style.css';
 
-function Error() {
+export default function Error() {
   return (
     <React.Fragment>
-      <h1>Error</h1>
+      <h1>Page Error</h1>
     </React.Fragment>
   );
 }
-
-export default Error;

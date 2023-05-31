@@ -1,5 +1,5 @@
 import './style.css';
 
 export default function Actualite() {
-  return <h1>Actualite</h1>;
+  return <h1>Composant Actualite</h1>;
 }

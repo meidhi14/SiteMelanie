@@ -1,12 +1,14 @@
 import React from 'react';
 import './style.css';
+import BaniereLivreDor from '../../composants/BanniereLivreDor';
+import Commentaire from '../../composants/Commentaire';
 
-function LivreDor() {
+export default function LivreDor() {
   return (
     <React.Fragment>
-      <h1>Livre d'or</h1>
+      <h1>Page Livre d'or</h1>
+      <BaniereLivreDor />
+      <Commentaire />
     </React.Fragment>
   );
 }
-
-export default LivreDor;

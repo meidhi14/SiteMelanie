@@ -1,5 +1,5 @@
 import './style.css';
 
 export default function BoutonAjout() {
-  return <h1>BoutonAjout</h1>;
+  return <h1>Composant BoutonAjout</h1>;
 }
