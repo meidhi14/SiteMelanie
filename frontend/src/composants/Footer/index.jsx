@@ -1,5 +1,23 @@
 import './style.css';
+import flecheRetour from '../../assets/images-logos-maquettes/fleche-superieure-droite.png';
 
 export default function Footer() {
-  return <h1>Composant Footer</h1>;
+  const handleImageClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  return (
+    <div className="footer">
+      <div className="imageFlecheRetour">
+        <img
+          src={flecheRetour}
+          alt="logo flèche retour"
+          onClick={handleImageClick}
+        />
+      </div>
+    </div>
+  );
 }

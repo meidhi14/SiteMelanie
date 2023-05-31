@@ -1,0 +1,19 @@
+.footer {
+    height: 140px;
+    display: flex;
+    justify-content: flex-end;
+    background-color: #F38071;
+}
+
+.imageFlecheRetour {
+    width: 160px;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.imageFlecheRetour img {
+    width: 90px;
+}
