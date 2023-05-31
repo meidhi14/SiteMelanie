@@ -1,5 +1,5 @@
 const { Utilisateur, Actualite, Image } = require('../models');
-const { enregistrerImagesActualite, supprimerImage } = require('../fonctions');
+const { enregistrerImagesActualite } = require('../fonctions');
 const path = require('path');
 const fs = require('fs');
 
