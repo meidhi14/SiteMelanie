@@ -1,0 +1,20 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    background-color: #F38071;
+}
+
+.navHeader  {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 36px;
+    width: 40%;
+}
+
+.header h1 {
+    font-size: 52px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+
+}

@@ -3,9 +3,9 @@ import './style.css';
 
 export default function Header() {
   return (
-    <nav className="navHeader">
+    <nav className="header">
       <h1>Mon assistante maternelle Mélanie</h1>
-      <div className="lienHeader">
+      <div className="navHeader">
         <Link to={'/presentation'}>Accueil</Link>
         <Link to={'/formulaire-de-connection'}>Mon espace</Link>
         <Link to={'/livre-dor'}>Livre d'or</Link>

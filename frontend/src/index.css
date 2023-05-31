@@ -26,3 +26,16 @@ img {
 
 /* Fin du Reset CSS */
 
+/* Importation de la police Alex Brush */
+@font-face {
+  font-family: "Alex Brush";
+  src: url(./assets/polices/AlexBrush-Regular.ttf);
+}
+
+body {
+ font-family: "Alex Brush";
+}
+
+h1 {
+  font-weight: 400;
+}
