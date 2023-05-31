@@ -1,13 +1,15 @@
 .header {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     background-color: #F38071;
+    height: 100px;
+
 }
 
 .navHeader  {
     display: flex;
     justify-content: space-around;
-    align-items: center;
     font-size: 36px;
     width: 40%;
 }
