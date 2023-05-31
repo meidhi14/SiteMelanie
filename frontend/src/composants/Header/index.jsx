@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './style.css';
 
-function Header() {
+export default function Header() {
   return (
     <nav className="navHeader">
       <h1>Mon assistante maternelle Mélanie</h1>
@@ -13,5 +13,3 @@ function Header() {
     </nav>
   );
 }
-
-export default Header;
