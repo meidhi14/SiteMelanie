@@ -7,7 +7,7 @@ const auth = require('../middleware/auth');
 // --- Récupérer TOUTES les actualite d'un utilisateur avec son id ---
 router.get('/:idUtilisateur', auth, actualiteCtrl.sendAllActualite);
 
-// --- Récupérer Une actualite d'un utilisateur avec son id ---
+// --- Récupérer UNE actualite d'un utilisateur avec son id ---
 router.get('/:idUtilisateur/:idActualite', auth, actualiteCtrl.getOneActualite);
 
 // --- Ajouter une actualite avec l'id de l'utilisateur ---

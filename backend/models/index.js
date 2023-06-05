@@ -15,7 +15,7 @@ Actualite.hasMany(Image, { foreignKey: 'actualite_id' });
 Image.belongsTo(Utilisateur, { foreignKey: 'utilisateur_id' });
 Image.belongsTo(Actualite, { foreignKey: 'actualite_id' });
 
-// Exportez vos modèles
+// Exporter les models
 module.exports = {
   Utilisateur,
   Actualite,

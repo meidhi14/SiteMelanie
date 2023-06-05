@@ -17,3 +17,7 @@
 .imageFlecheRetour img {
     width: 90px;
 }
+
+img:hover {
+    cursor: pointer;
+}
